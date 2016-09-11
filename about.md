@@ -4,12 +4,4 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
-
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+I'm a Data Scientist and Machine Learning Engineer based in the Bay Area.  By day I work at Apixio using Machine Learning to analyse healthcare records.  You can contact me via the social media links below.
