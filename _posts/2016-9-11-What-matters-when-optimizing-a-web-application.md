@@ -21,14 +21,16 @@ app = Flask(__name__)
 
 @app.route("/io")
 def io_bound_request(min_response_time=0.1, mean_response_time=0.3, std_response_time=0.2):
-    wait_time = min_response_time + np.random.lognormal(np.log(mean_response_time), std_response_time)
+    io_call_time = np.random.lognormal(np.log(mean_response_time), std_response_time)
+    wait_time = min_response_time + io_call_time
     time.sleep(wait_time)
     return "ok!"
 
 
 @app.route("/cpu")
 def cpu_bound_request(min_size=500, max_size=2000):
-    json.dumps({str(x): x for x in xrange(random.randint(min_size, max_size))})
+    data = {str(x): x for x in xrange(random.randint(min_size, max_size))}
+    json.dumps(data)
     return "ok!"
 
 
@@ -38,7 +40,7 @@ if __name__ == "__main__":
 
 In this simple example we have two endpoints - one that involves a blocking i/o request, and another that is bound by cpu speed.  This is common for a web application - some requests can be served using only on memory and cpu, whilst others require calls to a database, or networked cache.  We can graph the distribution of their response times
 
-![response time distributions]({{ site.baseurl }}/images/response_times_distributions.svg)
+![response time distributions]({{ site.baseurl }}/images/response_time_distributions.svg)
 
 Let's say 60% of our web requests are CPU bound, and we'll add an endpoint to help us load test.
 
@@ -142,7 +144,7 @@ Transfer/sec:    203.26KB
 
 We can still support more concurrent connections, albeit with increased number of socket errors.
 
-![impact of adding more coroutines]({{ site.baseurl }}/images/effect_of_co-routines_on_requests_per_second.png)
+![impact of adding more coroutines]({{ site.baseurl }}/images/effect_of_gevent_coroutines_on_requests_per_second.png)
 
 To return to the original point of this post - If you are attempting to improve scalability of a legacy app, the key thing to do is to replace any synchronous, blocking i/o calls with an asynchronous alternative.  In this simple example we have improved the number of requests per second by 100X, and the number of concurrent users we can support by 100X, all without any code changes.
 
@@ -151,7 +153,8 @@ In a real app you may need to swap out your database library, or memcache/redis 
 ```
 @app.route("/oops")
 def non_yielding_io_bound_request(min_response_time=0.1, mean_response_time=0.25, std_response_time=0.12):
-    wait_time = min_response_time + np.random.lognormal(np.log(mean_response_time), std_response_time)
+    io_call_time = np.random.lognormal(np.log(mean_response_time), std_response_time)
+    wait_time = min_response_time + io_call_time
     get_original('time', 'sleep')(wait_time)
     return "ok"
 
