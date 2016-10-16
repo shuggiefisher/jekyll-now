@@ -3,7 +3,7 @@ layout: post
 title: How to use machine learning to optimise an application
 ---
 
-In a previous post I covered the basic steps when optimising a legacy web application.  Once you have tackled the low hanging fruit, namely making all i/o operations asynchronous, the questions becomes how to optimise performance further.  At this point many people will have a hunch as to where the bottlenecks are in the system, but are those hunches correct?  If we guess incorrectly we can spend a lot of time optimising code paths that have no impact on the overall performance.  Web applications with asynchronous requests can be subject to quite complex performance dynamics, and so it isn't always obvious where the true bottlenecks are.
+In a [previous post]({{ site.baseurl }}/What-matters-when-optimizing-a-web-application/) I covered the basic steps when optimising a legacy web application.  Once you have tackled the low hanging fruit, namely making all i/o operations asynchronous, the questions becomes how to optimise performance further.  At this point many people will have a hunch as to where the bottlenecks are in the system, but are those hunches correct?  If we guess incorrectly we can spend a lot of time optimising code paths that have no impact on the overall performance.  Web applications with asynchronous requests can be subject to quite complex performance dynamics, and so it isn't always obvious where the true bottlenecks are.
 
 One way to be sure what code paths determine performance is to use real world benchmark data, and learn from the data which parameters are most responsible for determining the number of requests the application can handle.
 
@@ -161,7 +161,7 @@ The models demonstrate the following performance on holdout data:
 
 ![goodness of fit for the linear regression and random forest models]({{ site.baseurl }}/images/model_fit.svg)
 
-Both models explain the unseen data well, the slightly better scores of the non-linear random-forest model indicate that there are some dependencies *between* the parameters which impact performance.  For example, high variance in the response time of i/o call may have an impact on performance, but this only when the *mean response time* is high.
+Both models explain the unseen data well, the slightly better scores of the non-linear random-forest model indicate that there are some dependencies *between* the parameters which impact performance.  For example, high variance in the response time of i/o call may have an impact on performance, but this only matters when the *mean response time* is high.
 
 ![relative importance of features according to the random forest model]({{ site.baseurl }}/images/feature_importance.svg)
 
