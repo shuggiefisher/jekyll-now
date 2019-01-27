@@ -17,7 +17,7 @@ However for each specific problem, there is a significant amount of thought that
 
 ### How could convolutional networks be used?
 
-If there is a strong enough relationship between the map tiles and the response, a convolutional network may be able to learn the visual components of the map tiles that useful for the problem at hand.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the visual appearance of the map tiles, then there is a chance a convolutional network can learn which features to extract - something that would be time consuming to program for each specific problem domain.
+If there is a strong enough relationship between the map tiles and the response, a convolutional network may be able to learn the visual components of the map tiles that specific to the problem.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the visual appearance of the map tiles, then there is a chance a convolutional network can learn which features to extract - something that would be time consuming to program for each specific problem domain.
 
 ### Testing the hypothesis
 
