@@ -35,7 +35,11 @@ This gives us:
 - **Input X**: an RGB bitmap representation of the OpenStreetMap tile
 - **Target Y**: an estimated population of the tile
 
-For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs:
+For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  
+
+### Model training and performance
+
+By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs:
 
 ![Convolutional network predicting population of OpenStreetMap tiles outperforms baseline mean estimator]({{ site.baseurl }}/images/conv_net_performance.png)
 
