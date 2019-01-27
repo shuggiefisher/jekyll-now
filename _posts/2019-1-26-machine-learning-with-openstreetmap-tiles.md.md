@@ -39,7 +39,7 @@ For this experiment I generated a dataset for California tiles and tracts, but t
 
 ### Model training and performance
 
-By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs:
+By using a simplified [Densenet architecture](https://arxiv.org/abs/1608.06993), and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs:
 
 ![Convolutional network predicting population of OpenStreetMap tiles outperforms baseline mean estimator]({{ site.baseurl }}/images/conv_net_performance.png)
 
