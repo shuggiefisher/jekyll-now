@@ -5,19 +5,19 @@ title: Machine Learning with OpenStreetMap tiles
 
 ![Estimating population using openstreetmap tiles]({{ site.baseurl }}/images/estimating_population_from_openstreetmap_tiles.png)
 
-[OpenStreetMap](https://www.openstreetmap.org/) is an amazing data source.  The collective effort of 1000s of volunteers has created a rich set of information that covers almost every location on the planet.
+[OpenStreetMap](https://www.openstreetmap.org/) is an incredible data source.  The collective effort of 1000s of volunteers has created a rich set of information that covers almost every location on the planet.
 
 There are a large number of problems where this information could be helpful:
 - city planning, characterising the features of a neighborhood
 - identifying suitable locations for marketing campaigns
 - researching land usage, public transit infrastructure
-- identifying accident hotspots
+- identifying crime and traffic hotspots
 
-However for each specific problem domain, there is a significant amount of work to be done to decide which map features will be informative for the task at hand.  One then needs to write code to extract those features from the OpenStreetMap database.  A simple alternative to this manual feature engineering approach could be to use convolutional networks on the rendered map tiles.
+However for each specific problem, there is a significant amount of thought that needs to go into deciding which features of the place will be informative for the task at hand.  For each task, one needs to write code to extract those features from the OpenStreetMap database.  An alternative to this manual feature engineering approach would be to use convolutional networks on the rendered map tiles.
 
 ### How could convolutional networks be used?
 
-If there is enough information in the map tiles, a convolutional network may be able to learn which of the map tiles features are predictive for the specific problem domain.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as the visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the spatial distibution of the features, then there is a chance a convolutional network can make use of that information, something that would be hard to do with a manual feature engineering approach.
+If there is a strong enough relationship between the map tiles and the response, a convolutional network may be able to learn the visual components of the map tiles that useful for the problem at hand.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the visual appearance of the map tiles, then there is a chance a convolutional network can learn which features to extract - something that would be time consuming to program for each specific problem domain.
 
 ### Testing the hypothesis
 
@@ -29,13 +29,13 @@ The steps involved:
 3. Download the tiles from a local instance of [OpenMapTiles](https://openmaptiles.org/).
 4. Sum the population of the tracts inside each tile, and add the fractional populations for tracts the intersect with the tile
 
-[map of intersecting tracts]
+![Estimating population using intersection between census tracts and openstreetmap tiles]({{ site.baseurl }}/images/osm_tile_census_tract_intersections.png)
 
 This gives us:
-- **Input X**: an RGB bitmap representation of the OSM tile
-- **Target Y**: the estimated population of the tile
+- **Input X**: an RGB bitmap representation of the OpenStreetMap tile
+- **Target Y**: an estimated population of the tile
 
-For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs.
+For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs:
 
 ![Convolutional network predicting population of OpenStreetMap tiles outperforms baseline mean estimator]({{ site.baseurl }}/images/conv_net_performance.png)
 
