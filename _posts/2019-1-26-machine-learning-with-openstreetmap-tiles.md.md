@@ -13,9 +13,15 @@ There are a large number of problems where this information could be helpful:
 - researching land usage, public transit infrastructure
 - identifying accident hotspots
 
-However for each specific problem domain, there is a significant amount of work to be done to decide which map features will be informative for the task at hand.  One then needs to write code to extract those features from the OpenStreetMap database.  A simple alternative to this manual feature engineering approach could be to use convolutional networks on the rendered map tiles.  If there is enough information in the map tiles, a convnet may be able to learn which of the map tiles features are predictive for the specific problem domain.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as the visual system can work with, and convolutional networks have proven a very capable of mimicking the performance of the visual system.  If there is information in the spatial distibution of the features, then there is a chance a convolutional network can make use of that information, something that would be hard to do with a manual feature engineering approach.
+However for each specific problem domain, there is a significant amount of work to be done to decide which map features will be informative for the task at hand.  One then needs to write code to extract those features from the OpenStreetMap database.  A simple alternative to this manual feature engineering approach could be to use convolutional networks on the rendered map tiles.
 
-To test whether convolutional networks can learn useful features from map tiles, I've chosen simple test problem:  *Estimate the population for a given map tile*.  The USA census provides data on population numbers at the census tract level, and we can use the populations of the tracts as labels to estimate the populations of map tiles.
+### How could convolutional networks be used?
+
+If there is enough information in the map tiles, a convolutional network may be able to learn which of the map tiles features are predictive for the specific problem domain.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as the visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the spatial distibution of the features, then there is a chance a convolutional network can make use of that information, something that would be hard to do with a manual feature engineering approach.
+
+### Testing the hypothesis
+
+To test whether convolutional networks can learn useful features from map tiles, I've chosen simple test problem:  **Estimate the population for a given map tile**.  The USA census provides data on population numbers at the census tract level, and we can **use the populations of the tracts to approximate the populations of map tiles**.
 
 The steps involved:
 1. Download population data at the census tract level from the [Census Bureau](https://www.census.gov/geo/reference/centersofpop.html).
@@ -25,12 +31,11 @@ The steps involved:
 
 [map of intersecting tracts]
 
-This gives us
+This gives us:
+- **Input X**: an RGB bitmap representation of the OSM tile
+- **Target Y**: the estimated population of the tile
 
-*Input X*: an RGB bitmap representation of the OSM tile
-*Target Y*: the estimated population of the tile
-
-For this experiment I generated a dataset for California, but the same process can be done for every US state.  By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs.
+For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  By using a simplified Densenet architecture, and minimising the mean-squared error on the log scale, the network achieves the following cross-validation performance after a few epochs.
 
 ![Convolutional network predicting population of OpenStreetMap tiles outperforms baseline mean estimator]({{ site.baseurl }}/images/conv_net_performance.png)
 
