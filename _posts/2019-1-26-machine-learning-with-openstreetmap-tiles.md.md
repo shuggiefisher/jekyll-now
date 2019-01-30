@@ -19,7 +19,7 @@ An alternative to this manual feature engineering approach would be to **use con
 
 ### How could convolutional networks be used?
 
-If there is a strong enough relationship between the map tile images and the response variable, a convolutional network may be able to learn the visual components of the map tiles that are helpful for each problem.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can comprehend. Convolutional networks have proven very capable of mimicking the performance of the visual system - so it's feasible a convolutional network could learn which features to extract from the images - something that would be time consuming to program for each specific problem domain.
+If there is a strong enough relationship between the map tile images and the response variable, a convolutional network may be able to learn the visual components of the map tiles that are helpful for each problem.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can comprehend. And convolutional networks have proven very capable of mimicking the performance of the visual system - so it's feasible a convolutional network could learn which features to extract from the images - something that would be time consuming to program for each specific problem domain.
 
 ### Testing the hypothesis
 
@@ -47,7 +47,7 @@ By using a simplified [Densenet architecture](https://arxiv.org/abs/1608.06993),
 
 ![Convolutional network predicting population of OpenStreetMap tiles outperforms baseline mean estimator]({{ site.baseurl }}/images/conv_net_performance.png)
 
-This equates to a mean-absolute error of 0.51 on the log-scale for each tile.  So the prediction tends to be of the right order of magnitude, but off by a factor of 3X (we haven't done our best to optimize performance, so this isn't a bad start).
+The squared error of 0.45 is an improvement 0.85 which you would get if you just guess the mean population each time.  This equates to a mean-absolute error of 0.51 on the log-scale for each tile.  So the prediction tends to be of the right order of magnitude, but off by a factor of 3X (we haven't done anything to optimize performance, so this isn't a bad start).
 
 ## Summary:
 
