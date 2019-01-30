@@ -7,17 +7,19 @@ title: Machine Learning with OpenStreetMap tiles
 
 [OpenStreetMap](https://www.openstreetmap.org/) is an incredible data source.  The collective effort of 1000s of volunteers has created a rich set of information that covers almost every location on the planet.
 
-There are a large number of problems where this information could be helpful:
+There are a large number of problems where information from the map could be helpful:
 - city planning, characterising the features of a neighborhood
-- identifying suitable locations for marketing campaigns
 - researching land usage, public transit infrastructure
+- identifying suitable locations for marketing campaigns
 - identifying crime and traffic hotspots
 
-However for each specific problem, there is a significant amount of thought that needs to go into deciding which features of the place will be informative for the task at hand.  For each task, one needs to write code to extract those features from the OpenStreetMap database.  An alternative to this manual feature engineering approach would be to use convolutional networks on the rendered map tiles.
+However for each individual problem, there is a significant amount of thought that needs to go into deciding how to transform the data used to make the map, into features which are useful for the task at hand.  For each task, one needs understand the features available, and write code to extract those features from the OpenStreetMap database.
+
+An alternative to this manual feature engineering approach would be to **use convolutional networks on the rendered map tiles**.
 
 ### How could convolutional networks be used?
 
-If there is a strong enough relationship between the map tiles and the response, a convolutional network may be able to learn the visual components of the map tiles that specific to the problem.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can work with, and convolutional networks have proven very capable of mimicking the performance of the visual system.  If there is information in the visual appearance of the map tiles, then there is a chance a convolutional network can learn which features to extract - something that would be time consuming to program for each specific problem domain.
+If there is a strong enough relationship between the map tile images and the response variable, a convolutional network may be able to learn the visual components of the map tiles that are helpful for each problem.  The designers of the OpenStreetMap have done a great job of making sure the map rendering exposes as much information as our visual system can comprehend. Convolutional networks have proven very capable of mimicking the performance of the visual system - so it's feasible a convolutional network could learn which features to extract from the images - something that would be time consuming to program for each specific problem domain.
 
 ### Testing the hypothesis
 
@@ -34,6 +36,8 @@ The steps involved:
 This gives us:
 - **Input X**: an RGB bitmap representation of the OpenStreetMap tile
 - **Target Y**: an estimated population of the tile
+
+To re-iterate, **the only information used by the network to predict the population are the RGB values of the OpenStreetMap tiles**.
 
 For this experiment I generated a dataset for California tiles and tracts, but the same process can be done for every US state.  
 
